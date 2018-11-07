@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Ikko lang</title>
+
+    <link href="./style.css" rel="stylesheet"/>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header row">
+        <div class="col-sm">
+          <h1>Ikko Language</h1>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm">
+          <h2 class="redtext">What is Ikko?</h2>
+          <p>Ikko is a language in development that</p>
+          <ul>
+            <li>Is statically typed with type inference</li>
+            <li>Is garbage collected</li>
+            <li>Has no null value</li>
+            <li>Has generics</li>
+            <li>Offers pattern matching</li>
+            <li>Has sum types</li>
+            <li>Has a light syntax</li>
+          </ul>
+
+          <h2 class="redtext">Status</h2>
+          <p>
+            Ikko is just starting development. If you look at the roadmap below,
+            you can see that most features haven't been built yet. The example
+            shown here does run, however.
+          </p>
+        </div>
+
+        <div class="col-sm">
+          <h2 class="redtext">Example</h2>
+          <code><pre>
+<span class="kwd">fn</span> main() {
+    <span class="kwd">let</span> list = prepend(5, prepend(4, prepend(3, <span class="typ">End</span>{})))
+    <span class="kwd">if</span> contains(list, 3) {
+        print(<span class="str">"List contains 3\n"</span>)
+    }
+    <span class="kwd">if</span> contains(list, 10) {
+        print(<span class="str">"List contains 10\n"</span>)
+    }
+}
+
+<span class="kwd">type</span> <span class="typ">IntList</span> <span class="kwd">enum</span> {
+  <span class="typ">End</span>
+  <span class="typ">Link</span> {
+    value <span class="typ">Int</span>
+    next <span class="typ">IntList</span>
+  }
+}
+
+<span class="kwd">fn</span> contains(list, val) {
+    <span class="kwd">match</span> list {
+        <span class="typ">End</span>() {
+            <span class="kwd">return</span> <span class="typ">False</span>
+        }
+        <span class="typ">Link</span>(n, next) {
+            <span class="kwd">if</span> n == val {
+                <span class="kwd">return</span> <span class="typ">True</span>
+            }
+            <span class="kwd">return</span> contains(next, val)
+        }
+    }
+}
+
+<span class="kwd">fn</span> prepend(val, list) {
+    <span class="kwd">return</span> <span class="typ">Link</span>{
+        value: val,
+        next: list,
+    }
+}
+          </pre></code>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <h2 class="redtext">More about Ikko</h2>
+
+          <h3>Getting Ikko</h3>
+          <p>
+            Ikko is currently hosted on Github under its old name (Athena)
+            here: <a href="https://github.com/jmikkola/athena">github.com/jmikkola/athena</a>.
+          </p>
+          <p>
+            To build Ikko, you will
+            need <a href="https://docs.haskellstack.org/en/stable/README/">Haskell
+            Stack</a> installed. From there, you can run <code>make</code>
+            inside the repository.
+          </p>
+          <p>
+            To run an example, run a command like <code>stack exec athena --
+            examples/fib.at</code>.
+          </p>
+
+          <h3>Goals</h3>
+          <p>
+            Some new languages bring exciting new ideas to the table. This is
+            not one of those. The goal of Ikko is to maximize the ROI on
+            novelty, and to be the best language possible using only techniques
+            and features that are reasonably well established.
+          </p>
+
+          <p>
+            Ikko comes from my frustration with other programming languages. I
+            found that I was often thinking, "this language would be so much
+            better if it just had X from language Y." There was no single
+            langauge that, to me, felt like it had quite the right mix.
+          </p>
+
+          <p>
+            I like Haskell's type system, but the language is clunky to work in
+            day-to-day. Rust has a similarly good type system, but I want a
+            garbage collector (I don't do systems programming) and better
+            support for immutability. I like the light syntax and fluid tooling
+            of Go, but it forces you to write endless boilerplate to do anything
+            modestly clever.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <h2 class="redtext">Roadmap</h2>
+
+          <h4>Milestone 0: Basic type inference</h4>
+          <p>status: Done!</p>
+
+          <h4>Milestone 1: Define useful functions</h4>
+          <p>
+            This includes basics, like input and output,
+            access to characters within strings, basic data structures,
+            and commonly used functions.
+          </p>
+
+          <h4>Milestone 2: Powerful expressions</h4>
+          <p>
+            Add support for closures, match and conditional expressions,
+            and short function syntax.
+          </p>
+
+          <h4>Milestone 3: Packages</h4>
+          <p>
+            Add support for breaking code into multiple packages
+            and multiple files.
+          </p>
+
+          <h4>Milestone 4: Add type classes</h4>
+          <p>
+            These are haskell-like type classes.
+          </p>
+
+          <h4>Milestone 5: Basic usability</h4>
+          <p>
+            Create a small standard library and add support for importing
+            3rd party libraries.
+          </p>
+
+          <h4>Milestone 6: Compiler back end</h4>
+          <p>
+            In addition to the interpreter, add a compiler backend that
+            produces efficient binaries.
+          </p>
+
+          <h4>Milestone 7: Language spec</h4>
+          <p>
+            Define the language in as much detail as possible so that
+            there can be multiple correct implementations.
+          </p>
+
+          <h4>Future work</h4>
+          <p>
+            Future features may include a REPL, support for checked imutability,
+            an effect system, compiler-derived code, compile-time programming,
+            and reflection.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <h2 class="redtext">Contact</h2>
+
+          <p>
+            I'm most easily reached on
+            <a href="https://twitter.com/silenceofnight">twitter</a>.
+          </p>
+
+          <p>
+            Pull requests and issues on github are also welcome.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <!-- Can you tell I don't write HTML much these days? -->
+</html>
