@@ -41,7 +41,7 @@
           <h2 class="redtext">Example</h2>
           <code><pre>
 <span class="kwd">fn</span> main() {
-    <span class="kwd">let</span> list = prepend(5, prepend(4, prepend(3, <span class="typ">End</span>{})))
+    <span class="kwd">let</span> list = prepend(5, prepend(4, prepend(3, <span class="typ">End</span>)))
     <span class="kwd">if</span> contains(list, 3) {
         print(<span class="str">"List contains 3\n"</span>)
     }
@@ -50,35 +50,28 @@
     }
 }
 
-<span class="kwd">type</span> <span class="typ">IntList</span> <span class="kwd">enum</span> {
+<span class="kwd">type</span> <span class="typ">List&lt;T&gt;</span> <span class="kwd">enum</span> {
   <span class="typ">End</span>
   <span class="typ">Link</span> {
-    value <span class="typ">Int</span>
-    next <span class="typ">IntList</span>
+    value <span class="typ">T</span>
+    next <span class="typ">List&lt;T&gt;</span>
   }
 }
 
 <span class="kwd">fn</span> contains(list, val) {
     <span class="kwd">match</span> list {
-        <span class="typ">End</span>() {
+        <span class="typ">End</span> {
             <span class="kwd">return</span> <span class="typ">False</span>
         }
         <span class="typ">Link</span>(n, next) {
-            <span class="kwd">if</span> n == val {
-                <span class="kwd">return</span> <span class="typ">True</span>
-            }
-            <span class="kwd">return</span> contains(next, val)
+            <span class="kwd">return</span> n == val || contains(next, val)
         }
     }
 }
 
 <span class="kwd">fn</span> prepend(val, list) {
-    <span class="kwd">return</span> <span class="typ">Link</span>{
-        value: val,
-        next: list,
-    }
-}
-          </pre></code>
+    <span class="kwd">return</span> <span class="typ">Link</span>{value: val, next: list,}
+}</pre></code>
         </div>
       </div>
 
